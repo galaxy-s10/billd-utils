@@ -50,7 +50,6 @@ export const getScrollBarSize = () => {
   outerStyle.width = '200px';
   outerStyle.height = '150px';
   outerStyle.overflow = 'hidden';
-  console.log(outerStyle.top);
 
   outer.appendChild(inner);
 

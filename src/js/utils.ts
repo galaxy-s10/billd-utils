@@ -1,4 +1,52 @@
 /**
+ * @description: 生成style样式，并挂载到head
+ * @param {number} styleObj
+ * @example
+ * let obj = {'.aaa': { color: 'red' },'#bbb': { color: 'blue', 'font-size': '12px' }}
+ * generateStyle(obj)
+ * 生成：<style type="text/css">.aaa{color:red;}#bbb{color:blue;font-size:12px;}</style>，并且挂载到header里
+ * @return {*}
+ */
+export const generateStyle = (styleObj) => {
+  const styleEle = document.createElement('style');
+  styleEle.type = 'text/css';
+  let textContent = '';
+  function getStyleVal(obj) {
+    let str = '';
+    Object.keys(obj).forEach((key) => {
+      // eslint-disable-next-line
+      str += `${key}:${obj[key]};`;
+    });
+    return str;
+  }
+  Object.keys(styleObj).forEach((key) => {
+    textContent += `${key}{`;
+    textContent += getStyleVal(styleObj[key]);
+    textContent += '}';
+  });
+  styleEle.textContent = textContent;
+  document.head.appendChild(styleEle);
+};
+
+/**
+ * @description: 图片预加载
+ * @param {string} imgList
+ * @example
+ * Promise.all(imgPrereload(['https://resource.hsslive.cn/image/1578937683585vueblog.webp','https://resource.hsslive.cn/image/1582634581438regexr.webp']))
+ * @return {*}
+ */
+export const imgPrereload = (imgList: string[]) => {
+  return imgList.map((url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = url;
+      img.onload = () => resolve({ url, status: 1 });
+      img.onerror = (error) => reject({ url, status: 2, error });
+    });
+  });
+};
+
+/**
  * @description: 是否支持0.5px
  * @return {*}
  */

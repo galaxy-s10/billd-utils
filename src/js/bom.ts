@@ -35,6 +35,7 @@ export const isBrowser = () =>
  * @return {*}
  */
 export const isSafari = () => {
+  // mac下的Chrome浏览器的navigator.userAgent既有Safari也有Chrome，因此得排除mac下的Chrome浏览器
   return (
     /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
   );

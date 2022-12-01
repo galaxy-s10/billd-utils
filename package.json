@@ -22,7 +22,8 @@
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "./postinstall.js"
   ],
   "scripts": {
     "build": "ts-node ./scripts/build.ts",
@@ -32,6 +33,7 @@
     "cz": "cz",
     "dev": "ts-node ./scripts/build.ts --watch",
     "doc": "rimraf doc && typedoc --options ./typedoc.config.json",
+    "postinstall": "node ./postinstall.js",
     "lint": "eslint --config ./.eslintrc.js . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint --config ./.eslintrc.js . --ext .js,.jsx,.ts,.tsx --fix",
     "prepare": "husky install",

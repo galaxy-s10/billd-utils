@@ -195,7 +195,7 @@ export default defineConfig([
       /**
        * exports默认值是auto，可选：default、none。https://rollupjs.org/guide/zh/#exports
        * 我们源代码使用了esm，而且默认导出和具名导出一起使用了，编译的时候会报警告(!) Mixing named and default exports
-       * 设置exports: 'named'就不会报警告了
+       * 设置exports: 'named'就不会报警告了（实际上只是不会报警告了，设不设置named对实际打包的结果都没影响）
        */
       exports: 'named',
     },
