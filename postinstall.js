@@ -1,6 +1,3 @@
-const a = require('./dist/index.cjs');
-
-console.log(a);
 console.log(
   '\n' +
     '\u001B[96mThank you for using billd-utils (\u001B[94m https://github.com/galaxy-s10/billd-utils \u001B[96m)\u001B[0m' +
