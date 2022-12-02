@@ -1,3 +1,16 @@
+## [0.0.3](https://github.com/galaxy-s10/billd-utils/compare/v0.0.2...v0.0.3) (2022-12-02)
+
+
+### feat
+
+* .gitattributes ([d23527f](https://github.com/galaxy-s10/billd-utils/commit/d23527f08bdac54e2bc3a94632c000d1b9cf0e41))
+
+### fix
+
+* 1.删除无用打印;2.更新readme ([c9f043f](https://github.com/galaxy-s10/billd-utils/commit/c9f043f796d35fad8d9ba7cb8c0ee50f4ee4d1cd))
+
+
+
 ## [0.0.2](https://github.com/galaxy-s10/billd-utils/compare/v0.0.1...v0.0.2) (2022-12-01)
 
 
