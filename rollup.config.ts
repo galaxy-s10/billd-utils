@@ -13,10 +13,24 @@ import pkg from './package.json';
 import type { RollupOptions } from 'rollup';
 import type { Options as ESBuildOptions } from 'rollup-plugin-esbuild';
 
+console.log(`读取了: ${__filename.slice(__dirname.length + 1)}`);
+
 const babelRuntimeVersion = pkg.dependencies['@babel/runtime-corejs3'].replace(
   /^[^0-9]*/,
   ''
 );
+
+const allDep = [
+  ...Object.keys(pkg.dependencies || {}),
+  ...Object.keys(pkg.devDependencies || {}),
+].map((name) => RegExp(`^${name}($|/)`)); // 在打包esm和cjs的时候，排除所有依赖，让上层应用去处理（如果不排除就会有重复的polyfill）
+
+const esbuildPlugin = (options?: ESBuildOptions) =>
+  esbuild({
+    minify: false,
+    // sourceMap: true, // 默认就是true
+    ...options,
+  });
 
 // my-name转化为MyName
 export const toPascalCase = (input: string): string => {
@@ -26,19 +40,6 @@ export const toPascalCase = (input: string): string => {
   });
 };
 
-console.log(`读取了: ${__filename.slice(__dirname.length + 1)}`);
-
-const esbuildPlugin = (options?: ESBuildOptions) =>
-  esbuild({
-    minify: false,
-    // sourceMap: true, // 默认就是true
-    ...options,
-  });
-
-const allDep = [...Object.keys(pkg.dependencies || {})].map((name) =>
-  RegExp(`^${name}($|/)`)
-); // 在打包esm和cjs的时候，排除所有依赖，让上层应用去处理（如果不排除就会有重复的polyfill）
-
 const umdConfig = (prod = false): RollupOptions => ({
   input: './src/index.ts',
   output: {
@@ -47,10 +48,13 @@ const umdConfig = (prod = false): RollupOptions => ({
     name: toPascalCase(pkg.name),
     /**
      * exports默认值是auto，可选：default、none。https://rollupjs.org/guide/zh/#exports
-     * 我们源代码使用了esm，而且默认导出和具名导出一起使用了，编译的时候会报警告(!) Mixing named and default exports
-     * 设置exports: 'named'就不会报警告了
+     * 如果我们源代码默认导出和具名导出一起使用，编译的时候会报警告(!) Mixing named and default exports
+     * 设置exports: 'named'就不会报警告了（实际上只是不会报警告了，设不设置named对实际打包的结果都没影响）
+     * 如果我们源代码没有默认导出和具名导出一起使用，但是设置了exports: 'named'，会生成：exports["default"] = BilldUtils;
+     * 别人通过cjs导入的话，就得const BilldUtils = require("billd-utils").default;才能拿到默认导出；如果不使用exports: 'named'，
+     * 默认会生成：module.exports = BilldUtils;别人通过cjs导入的话，就正常的const BilldUtils = require("billd-utils");即可
      */
-    exports: 'named',
+    exports: 'named', // babel-utils默认导出和具名导出混用了，因此需要设置exports: 'named'
   },
   plugins: [
     commonjs(),
@@ -97,7 +101,10 @@ const umdConfig = (prod = false): RollupOptions => ({
        * babelHelpers,建议显式配置此选项（即使使用其默认值）
        * runtime: 您应该使用此功能，尤其是在使用汇总构建库时，它结合external使用
        * bundled: 如果您希望生成的捆绑包包含这些帮助程序（每个最多一份），您应该使用它。特别是在捆绑应用程序代码时很有用
-       * 在打包esm和cjs时,使用runtime,并且配合external;在打包umd时,使用bundled,并且不要用external
+       * 如果babelHelpers设置成bundled，@babel/plugin-transform-runtime的helpers得设置false！
+       * 如果babelHelpers设置成runtime，@babel/plugin-transform-runtime的helpers得设置true！
+       * 在打包esm和cjs时,使用runtime,并且配合external;在打包umd时,使用bundled,并且不要用external,如果打包umd时使
+       * 用了runtime但是没有配置external，会导致打包重复的polyfill，虽然打包的时候不报错，但是引入包使用的时候会报错
        */
       babelHelpers: 'bundled', // 默认bundled,可选:"bundled" | "runtime" | "inline" | "external" | undefined
       // babelHelpers: 'runtime', // 默认bundled,可选:"bundled" | "runtime" | "inline" | "external" | undefined
@@ -108,6 +115,7 @@ const umdConfig = (prod = false): RollupOptions => ({
 });
 
 export default defineConfig([
+  // esm
   {
     input: './src/index.ts',
     output: {
@@ -180,13 +188,17 @@ export default defineConfig([
          * babelHelpers,建议显式配置此选项（即使使用其默认值）
          * runtime: 您应该使用此功能，尤其是在使用汇总构建库时，它结合external使用
          * bundled: 如果您希望生成的捆绑包包含这些帮助程序（每个最多一份），您应该使用它。特别是在捆绑应用程序代码时很有用
-         * 在打包esm和cjs时,使用runtime,并且配合external;在打包umd时,使用bundled,并且不要用external
+         * 如果babelHelpers设置成bundled，@babel/plugin-transform-runtime的helpers得设置false！
+         * 如果babelHelpers设置成runtime，@babel/plugin-transform-runtime的helpers得设置true！
+         * 在打包esm和cjs时,使用runtime,并且配合external;在打包umd时,使用bundled,并且不要用external,如果打包umd时使
+         * 用了runtime但是没有配置external，会导致打包重复的polyfill，虽然打包的时候不报错，但是引入包使用的时候会报错
          */
         // babelHelpers: 'bundled', // 默认bundled,可选:"bundled" | "runtime" | "inline" | "external" | undefined
         babelHelpers: 'runtime', // 默认bundled,可选:"bundled" | "runtime" | "inline" | "external" | undefined
       }),
     ],
   },
+  // cjs
   {
     input: './src/index.ts',
     output: {
@@ -194,10 +206,13 @@ export default defineConfig([
       file: 'dist/index.cjs.js',
       /**
        * exports默认值是auto，可选：default、none。https://rollupjs.org/guide/zh/#exports
-       * 我们源代码使用了esm，而且默认导出和具名导出一起使用了，编译的时候会报警告(!) Mixing named and default exports
+       * 如果我们源代码默认导出和具名导出一起使用，编译的时候会报警告(!) Mixing named and default exports
        * 设置exports: 'named'就不会报警告了（实际上只是不会报警告了，设不设置named对实际打包的结果都没影响）
+       * 如果我们源代码没有默认导出和具名导出一起使用，但是设置了exports: 'named'，会生成：exports["default"] = BilldUtils;
+       * 别人通过cjs导入的话，就得const BilldUtils = require("billd-utils").default;才能拿到默认导出；如果不使用exports: 'named'，
+       * 默认会生成：module.exports = BilldUtils;别人通过cjs导入的话，就正常的const BilldUtils = require("billd-utils");即可
        */
-      exports: 'named',
+      exports: 'named', // babel-utils默认导出和具名导出混用了，因此需要设置exports: 'named'
     },
     external: allDep,
     plugins: [
@@ -265,13 +280,17 @@ export default defineConfig([
          * babelHelpers,建议显式配置此选项（即使使用其默认值）
          * runtime: 您应该使用此功能，尤其是在使用汇总构建库时，它结合external使用
          * bundled: 如果您希望生成的捆绑包包含这些帮助程序（每个最多一份），您应该使用它。特别是在捆绑应用程序代码时很有用
-         * 在打包esm和cjs时,使用runtime,并且配合external;在打包umd时,使用bundled,并且不要用external
+         * 如果babelHelpers设置成bundled，@babel/plugin-transform-runtime的helpers得设置false！
+         * 如果babelHelpers设置成runtime，@babel/plugin-transform-runtime的helpers得设置true！
+         * 在打包esm和cjs时,使用runtime,并且配合external;在打包umd时,使用bundled,并且不要用external,如果打包umd时使
+         * 用了runtime但是没有配置external，会导致打包重复的polyfill，虽然打包的时候不报错，但是引入包使用的时候会报错
          */
         // babelHelpers: 'bundled', // 默认bundled,可选:"bundled" | "runtime" | "inline" | "external" | undefined
         babelHelpers: 'runtime', // 默认bundled,可选:"bundled" | "runtime" | "inline" | "external" | undefined
       }),
     ],
   },
+  // .d.ts
   {
     input: './src/index.ts',
     output: {
@@ -280,6 +299,8 @@ export default defineConfig([
     },
     plugins: [dtsPlugin()],
   },
+  // umd
   umdConfig(),
+  // umd prod
   umdConfig(true),
 ]);
