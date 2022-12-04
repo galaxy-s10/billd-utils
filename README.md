@@ -29,7 +29,7 @@
 # 安装
 
 ```sh
-npm install 'billd-utils';
+npm install billd-utils
 ```
 
 # 文档
