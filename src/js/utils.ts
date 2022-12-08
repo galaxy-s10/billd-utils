@@ -235,7 +235,7 @@ export const deepClone = <T>(object: T): T => {
  * @param {boolean} leading 首次立即执行
  * @return {Promise}
  */
-export const debounce = (fn: () => any, delay: number, leading = false) => {
+export const debounce = (fn: any, delay: number, leading = false) => {
   let timer;
   const debounceFn = function (...args) {
     if (timer) {
@@ -279,7 +279,7 @@ export const debounce = (fn: () => any, delay: number, leading = false) => {
  * @param {boolean} trailing 最后一次执行
  * @return {Promise}
  */
-export const throttle = (fn: () => any, interval: number, trailing = false) => {
+export const throttle = (fn: any, interval: number, trailing = false) => {
   let lastTime = 0;
   let timer;
   return function (...args) {

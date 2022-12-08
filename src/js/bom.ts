@@ -9,6 +9,14 @@ export const isMobile = () => {
 };
 
 /**
+ * @description 判断是否是微信浏览器
+ * @return {*}
+ */
+export const isWechat = () => {
+  return /MicroMessenger/i.test(window.navigator.userAgent);
+};
+
+/**
  * @description 判断设备类型
  * @return {*}
  */
