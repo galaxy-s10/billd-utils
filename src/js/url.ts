@@ -1,9 +1,9 @@
 /**
- * @description 获取地址栏参数(注意:请提前对url进行decodeURI或decodeURIComponent解码)
+ * @description 获取地址栏参数(注意:请确保url是http://aaa.com/ds/?aa=1&bb=323这样子的)
  * @return {*}
  */
 export const getUrlParams = (key?: string) => {
-  const url = window.location.href;
+  const url = decodeURIComponent(window.location.href);
   const str = url.split('?')[1];
   const obj = {};
   if (str) {
