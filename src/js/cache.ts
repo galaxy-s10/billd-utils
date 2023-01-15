@@ -7,11 +7,20 @@ export class CacheModel {
   getStorage = (key: string) => {
     try {
       const res = localStorage.getItem(key);
-      return res ? JSON.parse(res).value : null;
+      if (res) {
+        const data = JSON.parse(res);
+        // 如果createTime没有值，则判断该缓存不合法；清除
+        if (!data.createTime) {
+          this.clearStorage(key);
+        } else {
+          return data.value;
+        }
+      }
     } catch (error) {
       this.clearStorage(key);
       console.error(error);
     }
+    return null;
   };
 
   /**
@@ -47,18 +56,20 @@ export class CacheModel {
       if (res) {
         const data = JSON.parse(res);
         const expireTime = data.expireTime;
-        // 如果缓存的expireTime小于当前时间,则代表已过期
-        const isExpires = expireTime < +new Date();
-        if (isExpires) {
+        const isExpired = expireTime < +new Date();
+        // 如果expireTime没有值，则判断该缓存不合法；清除
+        // 如果expireTime有值，但小于当前时间，则代表已过期；清除
+        if (!expireTime || isExpired) {
           this.clearStorage(key);
-          return null;
+        } else {
+          return data.value;
         }
-        return data.value;
       }
     } catch (error) {
       this.clearStorage(key);
       console.error(error);
     }
+    return null;
   };
 
   /**
