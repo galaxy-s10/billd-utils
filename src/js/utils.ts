@@ -1,4 +1,36 @@
 /**
+ * @description 跳转(window.location.href)
+ */
+export const hrefToTarget = (url: string) => {
+  window.location.href = url;
+};
+
+/**
+ * @description 跳转(window.open)
+ */
+export const openToTarget = (url: string) => {
+  window.open(url);
+};
+
+/**
+ * @description: 刷新页面(window.location.reload)
+ */
+export const windowReload = () => {
+  window.location.reload();
+};
+
+/**
+ * @description: 获取文件后缀
+ * @param {string} filename
+ * @return {*}
+ */
+export const getFileExt = (filename: string) => {
+  const arr = filename.split('.');
+  const ext = arr[arr.length - 1];
+  return ext;
+};
+
+/**
  * @description: 生成style样式，并挂载到head
  * @param {number} styleObj
  * @example
