@@ -6,11 +6,11 @@ export class CacheModel {
    */
   getStorage = (key: string) => {
     try {
-      // @ts-ignore
-      return JSON.parse(localStorage.getItem(key));
+      const res = localStorage.getItem(key);
+      return res ? JSON.parse(res).value : null;
     } catch (error) {
-      // @ts-ignore
-      throw new Error(error);
+      this.clearStorage(key);
+      console.error(error);
     }
   };
 
@@ -21,10 +21,11 @@ export class CacheModel {
    */
   setStorage = (key: string, value: any) => {
     try {
-      localStorage.setItem(key, JSON.stringify(value));
+      const createTime = +new Date();
+      localStorage.setItem(key, JSON.stringify({ value, createTime }));
     } catch (error) {
-      // @ts-ignore
-      throw new Error(error);
+      this.clearStorage(key);
+      console.error(error);
     }
   };
 
@@ -37,26 +38,26 @@ export class CacheModel {
   };
 
   /**
-   * @description 获取缓存,如果缓存已过期,会清除该缓存并返回null
+   * @description 获取缓存,如果缓存已过期,会清除该缓存,并返回null
    * @param {*} key
    */
   getStorageExp = (key: string) => {
     try {
-      // @ts-ignore
-      const storage = JSON.parse(localStorage.getItem(key));
-      if (storage) {
+      const res = localStorage.getItem(key);
+      if (res) {
+        const data = JSON.parse(res);
+        const expireTime = data.expireTime;
         // 如果缓存的expireTime小于当前时间,则代表已过期
-        const isExpires = storage.expireTime < +new Date();
+        const isExpires = expireTime < +new Date();
         if (isExpires) {
           this.clearStorage(key);
           return null;
         }
-        return storage.value;
+        return data.value;
       }
-      return null;
     } catch (error) {
-      // @ts-ignore
-      throw new Error(error);
+      this.clearStorage(key);
+      console.error(error);
     }
   };
 
@@ -69,16 +70,18 @@ export class CacheModel {
   setStorageExp = (key: string, value: any, expires: number) => {
     try {
       if ([key, value, expires].includes(undefined)) {
-        throw new Error('请检查传入的参数!');
+        console.error('setStorageExp失败，请检查传入的参数!');
+        return;
       }
       const createTime = +new Date();
       const expireTime = createTime + expires * 60 * 60 * 1000;
-      const params = { key, value };
-      const assignParams = Object.assign(params, { createTime, expireTime });
-      localStorage.setItem(key, JSON.stringify(assignParams));
+      localStorage.setItem(
+        key,
+        JSON.stringify({ value, createTime, expireTime })
+      );
     } catch (error) {
-      // @ts-ignore
-      throw new Error(error);
+      this.clearStorage(key);
+      console.error(error);
     }
   };
 }
