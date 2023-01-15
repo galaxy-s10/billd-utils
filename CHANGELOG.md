@@ -1,3 +1,12 @@
+## [0.0.5](https://github.com/galaxy-s10/billd-utils/compare/v0.0.4...v0.0.5) (2023-01-15)
+
+
+### fix
+
+* 优化cache ([15a1501](https://github.com/galaxy-s10/billd-utils/commit/15a1501c5625f9791aa009d47bc30d97c7c8555e))
+
+
+
 ## [0.0.4](https://github.com/galaxy-s10/billd-utils/compare/v0.0.3...v0.0.4) (2023-01-15)
 
 
