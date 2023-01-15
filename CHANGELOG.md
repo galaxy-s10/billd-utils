@@ -1,3 +1,12 @@
+## [0.0.6](https://github.com/galaxy-s10/billd-utils/compare/v0.0.5...v0.0.6) (2023-01-15)
+
+
+### feat
+
+* 添加一些方法 ([28aa25f](https://github.com/galaxy-s10/billd-utils/commit/28aa25ffd253bf5368701ac7c0f49dd12b24d827))
+
+
+
 ## [0.0.5](https://github.com/galaxy-s10/billd-utils/compare/v0.0.4...v0.0.5) (2023-01-15)
 
 
