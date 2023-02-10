@@ -1,4 +1,34 @@
 /**
+ * @description 下载图片
+ */
+export const downloadImg = (selector, name) => {
+  const image = new Image();
+  image.src = document.querySelector(selector).src;
+  image.setAttribute('crossOrigin', 'anonymous'); // 跨域
+  image.onload = function () {
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    const context = canvas.getContext('2d');
+    // @ts-ignore
+    context.drawImage(image, 0, 0, image.width, image.height);
+    const url = canvas.toDataURL('image/png');
+
+    // 生成一个a元素
+    const a = document.createElement('a');
+    // 创建一个单击事件
+    const event = new MouseEvent('click');
+
+    a.download = name || '下载图片名称';
+    // 将生成的URL设置为a.href属性
+    a.href = url;
+    // 触发a的单击事件
+    a.dispatchEvent(event);
+  };
+};
+
+/**
  * @description 跳转(window.location.href)
  */
 export const hrefToTarget = (url: string) => {
@@ -192,7 +222,7 @@ export const judgeType = (
 };
 
 /**
- * @description myName转化为my-name
+ * @description myName或者MyName转化为my-name
  * @copy https://github.com/vueComponent/ant-design-vue/blob/HEAD/antd-tools/generator-types/src/utils.ts
  * @param {string} input
  * @return {*}
