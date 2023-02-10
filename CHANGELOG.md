@@ -1,3 +1,12 @@
+## [0.0.7](https://github.com/galaxy-s10/billd-utils/compare/v0.0.6...v0.0.7) (2023-02-10)
+
+
+### feat
+
+* 下载图片方法 ([db6bcaa](https://github.com/galaxy-s10/billd-utils/commit/db6bcaac6068c94b9eafbee13a22ff7412ace5f6))
+
+
+
 ## [0.0.6](https://github.com/galaxy-s10/billd-utils/compare/v0.0.5...v0.0.6) (2023-01-15)
 
 
