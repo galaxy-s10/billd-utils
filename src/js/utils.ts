@@ -1,4 +1,33 @@
 /**
+ * @description 等比例适配盒子大小
+ * @param width           盒子宽度
+ * @param height          盒子高度
+ * @param maxWidth        最大盒子宽度
+ * @param maxHeight       最大盒子高度
+ * @returns {{width: number, height: number}} 返回适配好的盒子宽高
+ */
+export function computeBox({ width, height, maxWidth, maxHeight }) {
+  // w = h / ratio, h = w * ratio
+  const ratio = height / width;
+
+  let w = width;
+  let h = height;
+
+  if (w > maxWidth) {
+    w = maxWidth;
+    h = maxWidth * ratio;
+  }
+  if (h > maxHeight) {
+    w = maxHeight / ratio;
+    h = maxHeight;
+  }
+
+  return {
+    width: w,
+    height: h,
+  };
+}
+/**
  * @description 下载图片
  */
 export const downloadImg = (selector, name) => {
