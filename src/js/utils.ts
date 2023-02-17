@@ -1,30 +1,55 @@
 /**
- * @description 等比例适配盒子大小
- * @param width           盒子宽度
- * @param height          盒子高度
- * @param maxWidth        最大盒子宽度
- * @param maxHeight       最大盒子高度
+ * @description 将里面盒子等比例适配外层盒子
+ * 如果里层盒子的宽或高有一边大于外层盒子的宽或高，可不设置minWidth和minHeight，
+ * 如果里层盒子的宽和高都小于外层盒子的宽和高需要设置maxWidth和minWidth一致，maxHeight和minHeight一致
+ * @param width           里面的盒子宽度
+ * @param height          里面的盒子高度
+ * @param maxWidth        外面的盒子最大宽度
+ * @param maxHeight       外面的盒子最大高度
+ * @param minWidth        外面的盒子最小宽度
+ * @param minHeight       外面的盒子最小高度
  * @returns {{width: number, height: number}} 返回适配好的盒子宽高
  */
-export function computeBox({ width, height, maxWidth, maxHeight }) {
+export function computeBox({
+  width,
+  height,
+  maxWidth,
+  maxHeight,
+  minWidth,
+  minHeight,
+}) {
   // w = h / ratio, h = w * ratio
   const ratio = height / width;
+  // eslint-disable-next-line
+  const _minWidth = minWidth ? minWidth : 0;
+  // eslint-disable-next-line
+  const _minHeight = minHeight ? minHeight : 0;
+  // eslint-disable-next-line
+  let _width = width;
+  // eslint-disable-next-line
+  let _height = height;
 
-  let w = width;
-  let h = height;
-
-  if (w > maxWidth) {
-    w = maxWidth;
-    h = maxWidth * ratio;
+  if (_width < _minWidth) {
+    _width = _minWidth;
+    _height = _minWidth * ratio;
   }
-  if (h > maxHeight) {
-    w = maxHeight / ratio;
-    h = maxHeight;
+  if (_height < _minHeight) {
+    _width = _minHeight / ratio;
+    _height = _minHeight;
+  }
+
+  if (_width > maxWidth) {
+    _width = maxWidth;
+    _height = maxWidth * ratio;
+  }
+  if (_height > maxHeight) {
+    _width = maxHeight / ratio;
+    _height = maxHeight;
   }
 
   return {
-    width: w,
-    height: h,
+    width: _width,
+    height: _height,
   };
 }
 /**
