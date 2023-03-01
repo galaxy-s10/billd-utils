@@ -26,3 +26,22 @@ export const formatMemorySize = (val: number, num = 2) => {
   }
   return `${format(val / oneTb)}tb`;
 };
+
+/**
+ * @description 格式化时间
+ * @param {number} timetamp
+ */
+export const formatDate = (timetamp: number) => {
+  function addDateZero(num: number) {
+    return num < 10 ? `0${num}` : num;
+  }
+  const date = new Date(timetamp);
+  return {
+    year: date.getFullYear(),
+    month: addDateZero(date.getMonth()),
+    day: addDateZero(date.getDate()),
+    hour: addDateZero(date.getHours()),
+    minutes: addDateZero(date.getMinutes()),
+    seconds: addDateZero(date.getSeconds()),
+  };
+};
