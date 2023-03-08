@@ -38,7 +38,7 @@ export const formatDate = (timetamp: number) => {
   const date = new Date(timetamp);
   return {
     year: date.getFullYear(),
-    month: addDateZero(date.getMonth()),
+    month: addDateZero(date.getMonth() + 1),
     day: addDateZero(date.getDate()),
     hour: addDateZero(date.getHours()),
     minutes: addDateZero(date.getMinutes()),
