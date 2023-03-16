@@ -1,3 +1,18 @@
+## [0.0.8](https://github.com/galaxy-s10/billd-utils/compare/v0.0.7...v0.0.8) (2023-03-16)
+
+
+### feat
+
+* 计算等比例缩放盒子大小 ([db7f2c9](https://github.com/galaxy-s10/billd-utils/commit/db7f2c9c3678ac016b105cbe1afe90046bcb4a38))
+* 添加formatdate ([6975c04](https://github.com/galaxy-s10/billd-utils/commit/6975c04400568723fa250c487562d8db764fac34))
+
+### fix
+
+* 修改formatDate ([fddf119](https://github.com/galaxy-s10/billd-utils/commit/fddf11931bcf85ca9a3c52839e0c88b2b20c4dfc))
+* 优化计算盒子 ([0a6d205](https://github.com/galaxy-s10/billd-utils/commit/0a6d2054d86b382bacd3a65a28fac9a4741d0d04))
+
+
+
 ## [0.0.7](https://github.com/galaxy-s10/billd-utils/compare/v0.0.6...v0.0.7) (2023-02-10)
 
 
