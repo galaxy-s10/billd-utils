@@ -288,12 +288,33 @@ export const toKebabCase = (input: string): string =>
   );
 
 /**
+ * @description myName或者MyName转化为my_name
+ * @param {string} input
+ * @return {*}
+ */
+export const toKebabCase2 = (input: string) =>
+  input.replace(
+    /[A-Z]/g,
+    (val, index) => (index === 0 ? '' : '_') + val.toLowerCase()
+  );
+
+/**
  * @description my-name转化为myName
  * @param {string} input
  * @return {*}
  */
-export const toCamelCased = (input: string): string =>
+export const toCamelCased = (input: string) =>
   input.replace(/-(\w)/g, function (all, letter) {
+    return letter.toUpperCase();
+  });
+
+/**
+ * @description my_name转化为myName
+ * @param {string} input
+ * @return {*}
+ */
+export const toCamelCased2 = (input: string) =>
+  input.replace(/_(\w)/g, function (all, letter) {
     return letter.toUpperCase();
   });
 
@@ -302,9 +323,21 @@ export const toCamelCased = (input: string): string =>
  * @param {string} input
  * @return {*}
  */
-export const toPascalCase = (input: string): string => {
+export const toPascalCase = (input: string) => {
   input.replace(input[0], input[0].toUpperCase());
   return input.replace(/-(\w)/g, function (all, letter) {
+    return letter.toUpperCase();
+  });
+};
+
+/**
+ * @description my_name转化为MyName
+ * @param {string} input
+ * @return {*}
+ */
+export const toPascalCase2 = (input: string) => {
+  input.replace(input[0], input[0].toUpperCase());
+  return input.replace(/_(\w)/g, function (all, letter) {
     return letter.toUpperCase();
   });
 };
