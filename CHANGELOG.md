@@ -1,3 +1,13 @@
+## [0.0.9](https://github.com/galaxy-s10/billd-utils/compare/v0.0.8...v0.0.9) (2023-03-19)
+
+
+### feat
+
+* 添加模拟ajax ([19d5374](https://github.com/galaxy-s10/billd-utils/commit/19d53740c65e813a2f1245cff314187e874a96e5))
+* 驼峰方法 ([f02a293](https://github.com/galaxy-s10/billd-utils/commit/f02a293186b3751913a3c4301e090ec87d2158a0))
+
+
+
 ## [0.0.8](https://github.com/galaxy-s10/billd-utils/compare/v0.0.7...v0.0.8) (2023-03-16)
 
 
