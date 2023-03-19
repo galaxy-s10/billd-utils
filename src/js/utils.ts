@@ -1,3 +1,31 @@
+// TIP: ctrl+cmd+t,生成函数注释
+
+/**
+ * @description: 模拟ajax请求
+ */
+export const mockAjax = ({ flag = false, delay = 500 }) => {
+  return new Promise<{ code: number; data: { id: number }; msg: string }>(
+    (resolve, rejected) => {
+      setTimeout(() => {
+        if (flag) {
+          resolve({
+            code: 200,
+            data: {
+              id: 1,
+            },
+            msg: '请求成功',
+          });
+        } else {
+          rejected({
+            code: 400,
+            msg: '请求失败',
+          });
+        }
+      }, delay);
+    }
+  );
+};
+
 /**
  * @description 将里面盒子等比例适配外层盒子
  * 如果里层盒子的宽或高有一边大于外层盒子的宽或高，可不设置minWidth和minHeight，

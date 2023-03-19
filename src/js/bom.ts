@@ -1,3 +1,5 @@
+// TIP: ctrl+cmd+t,生成函数注释
+
 /**
  * @description 判断是否是移动端（判断比较粗糙）
  * @return {*}

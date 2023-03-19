@@ -1,3 +1,5 @@
+// TIP: ctrl+cmd+t,生成函数注释
+
 /**
  * @description 获取[min,max]之间的随机整数。
  * @example getRangeRandom([-10,100]) ===> -8

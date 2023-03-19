@@ -1,3 +1,5 @@
+// TIP: ctrl+cmd+t,生成函数注释
+
 /**
  * @description 格式化内存大小(要求传入的数字以byte为单位)
  * @param {number} val

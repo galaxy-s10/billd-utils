@@ -1,3 +1,5 @@
+// TIP: ctrl+cmd+t,生成函数注释
+
 /**
  * @description 数组去重，缺点不能去除{}
  * @param {Array} arr

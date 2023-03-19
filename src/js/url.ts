@@ -1,3 +1,5 @@
+// TIP: ctrl+cmd+t,生成函数注释
+
 /**
  * @description 获取地址栏参数(注意:请确保url是http://aaa.com/ds/?aa=1&bb=323这样子的)
  * @return {*}

@@ -1,3 +1,5 @@
+// TIP: ctrl+cmd+t,生成函数注释
+
 export class CacheModel {
   /**
    * @description 获取缓存
