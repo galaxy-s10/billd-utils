@@ -39,7 +39,10 @@ export const getArrayIntersection = (a: any[], b: any[]) => {
 };
 
 /**
- * @description 获取数组差集
+ * @description 获取数组差集（不修改原数组）
+ * @example
+ * a[1,2,3,4,5],b[2,4,6,8,10],a和b的差集：getArrayDifference(a,b) ===> [1,3,5]
+ * a[1,2,3,4,5],b[2,4,6,8,10],b和a的差集：getArrayDifference(b,a) ===> [6,8,10]
  * @param {any} a
  * @param {any} b
  * @return {*}

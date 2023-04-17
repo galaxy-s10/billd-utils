@@ -1,11 +1,21 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
+/** 异步更新 */
+export const asyncUpdate = function (fn) {
+  return new Promise<string>((resolve) => {
+    setTimeout(() => {
+      fn();
+      resolve('ok');
+    }, 0);
+  });
+};
+
 /**
  * @description: 模拟ajax请求
  */
-export const mockAjax = ({ flag = false, delay = 500 }) => {
+export const mockAjax = ({ flag = true, delay = 500 }) => {
   return new Promise<{ code: number; data: { id: number }; msg: string }>(
-    (resolve, rejected) => {
+    (resolve, reject) => {
       setTimeout(() => {
         if (flag) {
           resolve({
@@ -16,7 +26,7 @@ export const mockAjax = ({ flag = false, delay = 500 }) => {
             msg: '请求成功',
           });
         } else {
-          rejected({
+          reject({
             code: 400,
             msg: '请求失败',
           });
@@ -120,8 +130,8 @@ export const hrefToTarget = (url: string) => {
 /**
  * @description 跳转(window.open)
  */
-export const openToTarget = (url: string) => {
-  window.open(url);
+export const openToTarget = (...arg) => {
+  window.open(...arg);
 };
 
 /**

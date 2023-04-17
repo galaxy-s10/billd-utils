@@ -1,10 +1,28 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
+/** 判断是否是ipad */
+export const isIPad = () => {
+  const ua = navigator.userAgent.toLowerCase();
+  // iOS13以前navigator.platform返回"iPhone"或"iPad"；iOS13以后的iPad，navigator.platform返回"MacIntel"
+  const res = ua.match(/iPad/i);
+  if (res?.length) {
+    return true;
+  }
+  if (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) {
+    return true;
+  }
+  return false;
+};
+
 /**
  * @description 判断是否是移动端（判断比较粗糙）
  * @return {*}
  */
 export const isMobile = () => {
+  // iOS13以前navigator.platform返回"iPhone"或"iPad"；iOS13以后的iPad，navigator.platform返回"MacIntel"
+  if (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) {
+    return true;
+  }
   return /android|ios|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
     navigator.userAgent
   );
