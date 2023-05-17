@@ -264,6 +264,7 @@ export const deleteUseLessObjectKey = (obj: any) => {
       delete obj[key];
     }
   });
+  return obj;
 };
 
 /**
