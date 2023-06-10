@@ -1,3 +1,5 @@
+import { debugLog } from '../utils/index';
+
 /**
  * @description 正则验证手机号、邮箱是否合法
  * @param {string} str
@@ -16,7 +18,7 @@ export const regVerify = (str: string, type: 'phone' | 'email') => {
         );
     }
   } catch (error: any) {
-    console.error(error);
+    debugLog('error', error);
     return false;
   }
 };

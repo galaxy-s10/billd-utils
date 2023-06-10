@@ -1,6 +1,12 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
-/** 异步更新 */
+import { debugLog } from '../utils/index';
+
+/**
+ * @description: 异步更新
+ * @param {*} fn
+ * @return {*}
+ */
 export const asyncUpdate = function (fn) {
   return new Promise<string>((resolve) => {
     setTimeout(() => {
@@ -12,6 +18,8 @@ export const asyncUpdate = function (fn) {
 
 /**
  * @description: 模拟ajax请求
+ * @param {*} param1
+ * @return {*}
  */
 export const mockAjax = ({ flag = true, delay = 500 }) => {
   return new Promise<{ code: number; data: { id: number }; msg: string }>(
@@ -37,7 +45,7 @@ export const mockAjax = ({ flag = true, delay = 500 }) => {
 };
 
 /**
- * @description 将里面盒子等比例适配外层盒子
+ * @description: 将里面盒子等比例适配外层盒子
  * 如果里层盒子的宽或高有一边大于外层盒子的宽或高，可不设置minWidth和minHeight，
  * 如果里层盒子的宽和高都小于外层盒子的宽和高需要设置maxWidth和minWidth一致，maxHeight和minHeight一致
  * @param width           里面的盒子宽度
@@ -90,21 +98,24 @@ export function computeBox({
     height: _height,
   };
 }
+
 /**
- * @description 下载图片
+ * @description: 下载图片
+ * @param {string} src
+ * @param {string} name
+ * @return {*}
  */
-export const downloadImg = (selector, name) => {
-  const image = new Image();
-  image.src = document.querySelector(selector).src;
-  image.setAttribute('crossOrigin', 'anonymous'); // 跨域
-  image.onload = function () {
+export const downloadImg = (src: string, name: string) => {
+  const imgEl = new Image();
+  imgEl.src = src;
+  imgEl.setAttribute('crossOrigin', 'anonymous'); // 跨域
+  imgEl.onload = function () {
     const canvas = document.createElement('canvas');
-    canvas.width = image.width;
-    canvas.height = image.height;
+    canvas.width = imgEl.width;
+    canvas.height = imgEl.height;
 
     const context = canvas.getContext('2d');
-    // @ts-ignore
-    context.drawImage(image, 0, 0, image.width, image.height);
+    context!.drawImage(imgEl, 0, 0, imgEl.width, imgEl.height);
     const url = canvas.toDataURL('image/png');
 
     // 生成一个a元素
@@ -118,17 +129,24 @@ export const downloadImg = (selector, name) => {
     // 触发a的单击事件
     a.dispatchEvent(event);
   };
+  imgEl.onerror = function (e) {
+    debugLog('error', '下载图片出错', e);
+  };
 };
 
 /**
- * @description 跳转(window.location.href)
+ * @description: 跳转(window.location.href)
+ * @param {array} arg
+ * @return {*}
  */
 export const hrefToTarget = (url: string) => {
   window.location.href = url;
 };
 
 /**
- * @description 跳转(window.open)
+ * @description: 跳转(window.open)
+ * @param {array} arg
+ * @return {*}
  */
 export const openToTarget = (...arg) => {
   window.open(...arg);
@@ -153,21 +171,19 @@ export const getFileExt = (filename: string) => {
 };
 
 /**
- * @description: 生成style样式，并挂载到head
+ * @description: 生成style标签，并挂载到head
+ * @example: generateStyle({ '.a': { color: 'red' }, '#b': { color: 'blue' } });
+ * 最终会将<style type="text/css">.a{color:red;}#b{color:blue;}</style>挂载到head里
  * @param {number} styleObj
- * @example
- * let obj = {'.aaa': { color: 'red' },'#bbb': { color: 'blue', 'font-size': '12px' }}
- * generateStyle(obj)
- * 生成：<style type="text/css">.aaa{color:red;}#bbb{color:blue;font-size:12px;}</style>，并且挂载到header里
  * @return {*}
  */
-export const generateStyle = (styleObj) => {
+export const generateStyle = (styleObj: Record<string, any>) => {
   const styleEle = document.createElement('style');
   styleEle.type = 'text/css';
   let textContent = '';
-  function getStyleVal(obj) {
+  function getStyleVal(obj: string) {
     let str = '';
-    Object.keys(obj).forEach((key) => {
+    Object.keys(obj).forEach((key: string) => {
       // eslint-disable-next-line
       str += `${key}:${obj[key]};`;
     });
@@ -184,9 +200,8 @@ export const generateStyle = (styleObj) => {
 
 /**
  * @description: 图片预加载
+ * @example: imgPrereload(['aaa.com/a.webp', 'aaa.com/b.webp']);
  * @param {string} imgList
- * @example
- * Promise.all(imgPrereload(['https://resource.hsslive.cn/image/1578937683585vueblog.webp','https://resource.hsslive.cn/image/1582634581438regexr.webp']))
  * @return {*}
  */
 export const imgPrereload = (imgList: string[]) => {
@@ -194,8 +209,8 @@ export const imgPrereload = (imgList: string[]) => {
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.src = url;
-      img.onload = () => resolve({ url, status: 1 });
-      img.onerror = (error) => reject({ url, status: 2, error });
+      img.onload = () => resolve({ url });
+      img.onerror = (error) => reject({ url, error });
     });
   });
 };
@@ -218,7 +233,7 @@ export const supportHairlines = () => {
 };
 
 /**
- * @description 让系统卡死一段时间
+ * @description: 让系统卡死一段时间
  * @param {*} duration
  * @return {*}
  */
@@ -229,7 +244,7 @@ export const sleep = (duration = 1000) => {
 };
 
 /**
- * @description 按屏幕375为基准,生成对应的px值,默认返回单位(px)
+ * @description: 按屏幕375为基准,生成对应的px值,默认返回单位(px)
  * @param {number} val
  * @param {*} flag
  * @return {*}
@@ -243,7 +258,7 @@ export const pxToDesignPx = (val: number, flag = true) => {
 };
 
 /**
- * @description 按屏幕375为基准,生成对应的vw值,默认返回单位(vw)
+ * @description: 按屏幕375为基准,生成对应的vw值,默认返回单位(vw)
  * @param {number} val
  * @param {*} flag
  * @return {*}
@@ -254,7 +269,7 @@ export const pxToDesignVw = (val: number, flag = true) => {
 };
 
 /**
- * @description 删除对象中值为: null, undefined, NaN, ''的属性
+ * @description: 删除对象中值为: null, undefined, NaN, ''的属性
  * @param {any} obj
  * @return {*}
  */
@@ -268,13 +283,13 @@ export const deleteUseLessObjectKey = (obj: any) => {
 };
 
 /**
- * @description 替换占位符
+ * @description: 替换占位符
+ * @example: replaceKeyFromValue('Hello {name}',{name:'Word'}) => Hello Word
  * @param {string} str
  * @param {object} obj
- * @return {*} string
- * @example replaceKeyFromValue('Hello {name}',{name:'Word'}) => Hello Word
+ * @return {*}
  */
-export const replaceKeyFromValue = (str: string, obj: object) => {
+export const replaceKeyFromValue = (str: string, obj: Record<string, any>) => {
   let res = str;
   Object.keys(obj).forEach((v) => {
     res = res.replace(new RegExp(`{${v}}`, 'ig'), obj[v]);
@@ -283,7 +298,7 @@ export const replaceKeyFromValue = (str: string, obj: object) => {
 };
 
 /**
- * @description 判断数据类型
+ * @description: 判断数据类型
  * @return {*}
  */
 export const judgeType = (
@@ -315,7 +330,7 @@ export const judgeType = (
 };
 
 /**
- * @description myName或者MyName转化为my-name
+ * @description: myName或者MyName转化为my-name
  * @copy https://github.com/vueComponent/ant-design-vue/blob/HEAD/antd-tools/generator-types/src/utils.ts
  * @param {string} input
  * @return {*}
@@ -327,7 +342,7 @@ export const toKebabCase = (input: string): string =>
   );
 
 /**
- * @description myName或者MyName转化为my_name
+ * @description: myName或者MyName转化为my_name
  * @param {string} input
  * @return {*}
  */
@@ -338,7 +353,7 @@ export const toKebabCase2 = (input: string) =>
   );
 
 /**
- * @description my-name转化为myName
+ * @description: my-name转化为myName
  * @param {string} input
  * @return {*}
  */
@@ -348,7 +363,7 @@ export const toCamelCased = (input: string) =>
   });
 
 /**
- * @description my_name转化为myName
+ * @description: my_name转化为myName
  * @param {string} input
  * @return {*}
  */
@@ -358,31 +373,31 @@ export const toCamelCased2 = (input: string) =>
   });
 
 /**
- * @description my-name转化为MyName
+ * @description: my-name转化为MyName
  * @param {string} input
  * @return {*}
  */
 export const toPascalCase = (input: string) => {
-  input.replace(input[0], input[0].toUpperCase());
-  return input.replace(/-(\w)/g, function (all, letter) {
+  const res = input.replace(input[0], input[0].toUpperCase());
+  return res.replace(/-(\w)/g, function (all, letter) {
     return letter.toUpperCase();
   });
 };
 
 /**
- * @description my_name转化为MyName
+ * @description: my_name转化为MyName
  * @param {string} input
  * @return {*}
  */
 export const toPascalCase2 = (input: string) => {
-  input.replace(input[0], input[0].toUpperCase());
-  return input.replace(/_(\w)/g, function (all, letter) {
+  const res = input.replace(input[0], input[0].toUpperCase());
+  return res.replace(/_(\w)/g, function (all, letter) {
     return letter.toUpperCase();
   });
 };
 
 /**
- * @description 使用json进行深克隆
+ * @description: 使用json进行深克隆
  * @param {*} obj
  * @return {*}
  */
@@ -390,7 +405,7 @@ export const deepCloneByJson = <T>(obj: T): T =>
   JSON.parse(JSON.stringify(obj));
 
 /**
- * @description 手写深拷贝，解决循环引用
+ * @description: 手写深拷贝，解决循环引用
  * @param {*} object
  * @return {*}
  */
@@ -417,7 +432,7 @@ export const deepClone = <T>(object: T): T => {
 };
 
 /**
- * @description 防抖函数（Promise）
+ * @description: 防抖函数（Promise）
  * @param {Function} fn 函数
  * @param {number} delay 延迟时间
  * @param {boolean} leading 首次立即执行
@@ -461,7 +476,7 @@ export const debounce = (fn: any, delay: number, leading = false) => {
 };
 
 /**
- * @description 节流函数（Promise）
+ * @description: 节流函数（Promise）
  * @param {Function} fn 函数
  * @param {number} interval 间隔
  * @param {boolean} trailing 最后一次执行
@@ -495,12 +510,12 @@ export const throttle = (fn: any, interval: number, trailing = false) => {
 };
 
 /**
- * @description 生成uuid
+ * @description: 生成uuid（16位）
+ * @example: generate() ===> 9d24f135-3e33-46b7-b51f-dc5b8121d60a
  * @return {*}
  */
 export const generateUuid = () => {
-  const tempUrl = URL.createObjectURL(new Blob());
-  const uuid = tempUrl.toString(); // blob:null/9d24f135-3e33-46b7-b51f-dc5b8121d60a
-  URL.revokeObjectURL(tempUrl);
-  return uuid.split('/')[1];
+  const uuid = URL.createObjectURL(new Blob()); // blob:null/9d24f135-3e33-46b7-b51f-dc5b8121d60a
+  URL.revokeObjectURL(uuid); // 在使用完对象 URL 后调用此方法，让浏览器知道不再保留对该文件的引用。
+  return uuid.split('/')[1].length;
 };

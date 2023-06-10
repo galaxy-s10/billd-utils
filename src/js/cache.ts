@@ -1,4 +1,5 @@
 // TIP: ctrl+cmd+t,生成函数注释
+import { debugLog } from '../utils/index';
 
 export class CacheModel {
   /**
@@ -19,8 +20,8 @@ export class CacheModel {
         }
       }
     } catch (error) {
+      debugLog('error', error);
       this.clearStorage(key);
-      console.error(error);
     }
     return null;
   };
@@ -35,8 +36,8 @@ export class CacheModel {
       const createTime = +new Date();
       localStorage.setItem(key, JSON.stringify({ value, createTime }));
     } catch (error) {
+      debugLog('error', error);
       this.clearStorage(key);
-      console.error(error);
     }
   };
 
@@ -68,8 +69,8 @@ export class CacheModel {
         }
       }
     } catch (error) {
+      debugLog('error', error);
       this.clearStorage(key);
-      console.error(error);
     }
     return null;
   };
@@ -83,7 +84,7 @@ export class CacheModel {
   setStorageExp = (key: string, value: any, expires: number) => {
     try {
       if ([key, value, expires].includes(undefined)) {
-        console.error('setStorageExp失败，请检查传入的参数!');
+        debugLog('error', 'setStorageExp失败，请检查传入的参数！');
         return;
       }
       const createTime = +new Date();
@@ -93,8 +94,8 @@ export class CacheModel {
         JSON.stringify({ value, createTime, expireTime })
       );
     } catch (error) {
+      debugLog('error', error);
       this.clearStorage(key);
-      console.error(error);
     }
   };
 }

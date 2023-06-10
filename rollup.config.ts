@@ -33,9 +33,9 @@ const esbuildPlugin = (options?: ESBuildOptions) =>
   });
 
 // my-name转化为MyName
-export const toPascalCase = (input: string): string => {
-  input.replace(input[0], input[0].toUpperCase());
-  return input.replace(/-(\w)/g, function (all, letter) {
+export const toPascalCase = (input: string) => {
+  const res = input.replace(input[0], input[0].toUpperCase());
+  return res.replace(/-(\w)/g, function (all, letter) {
     return letter.toUpperCase();
   });
 };
