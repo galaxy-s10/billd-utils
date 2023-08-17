@@ -23,7 +23,6 @@ export class CacheModel {
       debugLog('error', error);
       this.clearStorage(key);
     }
-    return null;
   };
 
   /**
@@ -72,7 +71,6 @@ export class CacheModel {
       debugLog('error', error);
       this.clearStorage(key);
     }
-    return null;
   };
 
   /**
