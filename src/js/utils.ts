@@ -7,12 +7,12 @@ import { debugLog } from '../utils/index';
  * @param {*} fn
  * @return {*}
  */
-export const asyncUpdate = function (fn) {
-  return new Promise<string>((resolve) => {
+export const asyncUpdate = (fn, delay?) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      fn();
-      resolve('ok');
-    }, 0);
+      const res = fn();
+      resolve(res);
+    }, delay || 0);
   });
 };
 
