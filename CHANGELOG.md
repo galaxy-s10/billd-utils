@@ -1,3 +1,12 @@
+## [0.0.14](https://github.com/galaxy-s10/billd-utils/compare/v0.0.13...v0.0.14) (2023-08-19)
+
+
+### feat
+
+* 优化asyncUpdate ([94ac5a5](https://github.com/galaxy-s10/billd-utils/commit/94ac5a526f2971e71501dc5df20444613b808709))
+
+
+
 ## [0.0.13](https://github.com/galaxy-s10/billd-utils/compare/v0.0.12...v0.0.13) (2023-08-17)
 
 
