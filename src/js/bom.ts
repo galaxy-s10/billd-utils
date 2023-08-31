@@ -44,8 +44,9 @@ export const judgeDevice = () => {
   const ua = navigator.userAgent;
   const isAndroid = /(Android)/i.test(ua);
   const isIphone = /(iPhone|iPad|iPod|iOS)/i.test(ua);
+  const isIPadRes = isIPad();
 
-  return { isAndroid, isIphone };
+  return { isAndroid, isIphone, isIPad: isIPadRes };
 };
 
 /**
