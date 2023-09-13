@@ -1,3 +1,13 @@
+## [0.0.15](https://github.com/galaxy-s10/billd-utils/compare/v0.0.14...v0.0.15) (2023-09-13)
+
+
+### feat
+
+* 新增ConcurrentPoll,优化utils ([f98889c](https://github.com/galaxy-s10/billd-utils/commit/f98889c395ffe7377bb4b472a976429de38df89e))
+* judgeDevice ([4419a60](https://github.com/galaxy-s10/billd-utils/commit/4419a605faf61fe7682faa87d4e7bf1b39a79473))
+
+
+
 ## [0.0.14](https://github.com/galaxy-s10/billd-utils/compare/v0.0.13...v0.0.14) (2023-08-19)
 
 
