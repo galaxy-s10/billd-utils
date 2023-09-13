@@ -7,7 +7,7 @@ export class CacheModel {
    * @param {string} key
    * @return {*}
    */
-  getStorage = (key: string) => {
+  getStorage = <T>(key: string): T | null => {
     try {
       const res = localStorage.getItem(key);
       if (res) {
@@ -15,13 +15,16 @@ export class CacheModel {
         // 如果createTime没有值，则判断该缓存不合法；清除
         if (!data.createTime) {
           this.clearStorage(key);
+          return null;
         } else {
           return data.value;
         }
       }
+      return null;
     } catch (error) {
       debugLog('error', error);
       this.clearStorage(key);
+      return null;
     }
   };
 
@@ -45,14 +48,18 @@ export class CacheModel {
    * @param {*} key
    */
   clearStorage = (key: string) => {
-    localStorage.removeItem(key);
+    try {
+      localStorage.removeItem(key);
+    } catch (error) {
+      debugLog('error', error);
+    }
   };
 
   /**
    * @description 获取缓存,如果缓存已过期,会清除该缓存,并返回null
    * @param {*} key
    */
-  getStorageExp = (key: string) => {
+  getStorageExp = <T>(key: string): T | null => {
     try {
       const res = localStorage.getItem(key);
       if (res) {
@@ -63,13 +70,16 @@ export class CacheModel {
         // 如果expireTime有值，但小于当前时间，则代表已过期；清除
         if (!expireTime || isExpired) {
           this.clearStorage(key);
+          return null;
         } else {
           return data.value;
         }
       }
+      return null;
     } catch (error) {
       debugLog('error', error);
       this.clearStorage(key);
+      return null;
     }
   };
 
@@ -82,7 +92,7 @@ export class CacheModel {
   setStorageExp = (key: string, value: any, expires: number) => {
     try {
       if ([key, value, expires].includes(undefined)) {
-        debugLog('error', 'setStorageExp失败，请检查传入的参数！');
+        debugLog('error', '请检查传入的参数！');
         return;
       }
       const createTime = +new Date();

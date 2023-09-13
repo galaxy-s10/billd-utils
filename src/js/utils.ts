@@ -3,6 +3,24 @@
 import { debugLog } from '../utils/index';
 
 /**
+ * @description: 字符串编码
+ * @param {string} str
+ * @return {*}
+ */
+export function strBtoa(str: string) {
+  return window.btoa(window.encodeURIComponent(str));
+}
+
+/**
+ * @description: 字符串解码
+ * @param {string} str
+ * @return {*}
+ */
+export function strAtob(str: string) {
+  return window.decodeURIComponent(window.atob(str));
+}
+
+/**
  * @description: 异步更新
  * @param {*} fn
  * @return {*}

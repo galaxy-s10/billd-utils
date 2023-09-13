@@ -8,3 +8,4 @@ export * from './url';
 export * from './utils';
 export * from '../class/cache';
 export * from '../class/lru-cache';
+export * from '../class/queue';
