@@ -39,6 +39,23 @@ export const getArrayIntersection = (a: any[], b: any[]) => {
 };
 
 /**
+ * @description 获取数组的对称差集（不修改原数组）
+ * @example
+ * a[1,2,3,4,5],b[3,4,5,6,7],a和b的对称差集:getArraySymmetricDifference(a,b) ===> [1,2,6,7]
+ * @param {any} a
+ * @param {any} b
+ * @return {*}
+ */
+export function getArraySymmetricDifference(arr1: any[], arr2: any[]) {
+  const result: any[] = [];
+  const diff = arr1.filter((x) => !arr2.includes(x));
+  const diff2 = arr2.filter((x) => !arr1.includes(x));
+  result.push(...diff);
+  result.push(...diff2);
+  return result;
+}
+
+/**
  * @description 获取数组差集（不修改原数组）
  * @example
  * a[1,2,3,4,5],b[2,4,6,8,10],a和b的差集:getArrayDifference(a,b) ===> [1,3,5]
