@@ -2,6 +2,32 @@
 import { debugLog } from '../utils/index';
 
 export class CacheModel {
+  prefix = '';
+
+  constructor(prefix: string) {
+    this.prefix = prefix;
+  }
+
+  handlePrefix = (key: string) => {
+    if (this.prefix === '') {
+      return '';
+    } else {
+      return `${this.prefix}___${key}`;
+    }
+  };
+
+  getItem = (key: string) => {
+    return localStorage.getItem(this.handlePrefix(key));
+  };
+
+  setItem = (key: string, value: any) => {
+    return localStorage.setItem(this.handlePrefix(key), value);
+  };
+
+  removeItem = (key: string) => {
+    return localStorage.removeItem(this.handlePrefix(key));
+  };
+
   /**
    * @description 获取缓存
    * @param {string} key
@@ -9,7 +35,7 @@ export class CacheModel {
    */
   getStorage = <T>(key: string): T | null => {
     try {
-      const res = localStorage.getItem(key);
+      const res = this.getItem(key);
       if (res) {
         const data = JSON.parse(res);
         // 如果createTime没有值，则判断该缓存不合法；清除
@@ -36,7 +62,7 @@ export class CacheModel {
   setStorage = (key: string, value: any) => {
     try {
       const createTime = +new Date();
-      localStorage.setItem(key, JSON.stringify({ value, createTime }));
+      this.setItem(key, JSON.stringify({ value, createTime }));
     } catch (error) {
       debugLog('error', error);
       this.clearStorage(key);
@@ -49,7 +75,7 @@ export class CacheModel {
    */
   clearStorage = (key: string) => {
     try {
-      localStorage.removeItem(key);
+      this.removeItem(key);
     } catch (error) {
       debugLog('error', error);
     }
@@ -61,7 +87,7 @@ export class CacheModel {
    */
   getStorageExp = <T>(key: string): T | null => {
     try {
-      const res = localStorage.getItem(key);
+      const res = this.getItem(key);
       if (res) {
         const data = JSON.parse(res);
         const expireTime = data.expireTime;
@@ -97,10 +123,7 @@ export class CacheModel {
       }
       const createTime = +new Date();
       const expireTime = createTime + expires * 60 * 60 * 1000;
-      localStorage.setItem(
-        key,
-        JSON.stringify({ value, createTime, expireTime })
-      );
+      this.setItem(key, JSON.stringify({ value, createTime, expireTime }));
     } catch (error) {
       debugLog('error', error);
       this.clearStorage(key);
