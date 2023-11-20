@@ -1,3 +1,12 @@
+## [0.0.18](https://github.com/galaxy-s10/billd-utils/compare/v0.0.17...v0.0.18) (2023-11-20)
+
+
+### fix
+
+* 修复缓存 ([2f850da](https://github.com/galaxy-s10/billd-utils/commit/2f850da343177e1f446ca59a08c99b21a2b31210))
+
+
+
 ## [0.0.17](https://github.com/galaxy-s10/billd-utils/compare/v0.0.16...v0.0.17) (2023-11-15)
 
 
