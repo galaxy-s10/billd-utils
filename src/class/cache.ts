@@ -10,7 +10,7 @@ export class CacheModel {
 
   handlePrefix = (key: string) => {
     if (this.prefix === '') {
-      return '';
+      return key;
     } else {
       return `${this.prefix}___${key}`;
     }
