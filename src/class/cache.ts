@@ -12,7 +12,7 @@ export class CacheModel {
     if (this.prefix === '') {
       return key;
     } else {
-      return `${this.prefix}___${key}`;
+      return `${this.prefix}${key}`;
     }
   };
 
