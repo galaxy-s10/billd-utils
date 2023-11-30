@@ -1,3 +1,12 @@
+## [0.0.19](https://github.com/galaxy-s10/billd-utils/compare/v0.0.18...v0.0.19) (2023-11-30)
+
+
+### fix
+
+* cache前缀 ([c4dea22](https://github.com/galaxy-s10/billd-utils/commit/c4dea228d7f689c117403603c3b5218e5e167f6f))
+
+
+
 ## [0.0.18](https://github.com/galaxy-s10/billd-utils/compare/v0.0.17...v0.0.18) (2023-11-20)
 
 
