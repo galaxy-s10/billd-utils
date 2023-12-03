@@ -1,6 +1,17 @@
 import { debugLog } from '../utils/index';
 
 /**
+ * @description 正则是否是纯数字（纯整数）
+ * @example: isPureNumber(abc) ===> false；isPureNumber(1.23) ===> false；isPureNumber(123) ===> true；
+ * @param {string} str
+ * @return {*}
+ */
+export function isPureNumber(str: string) {
+  const regex = /^\d+$/;
+  return regex.test(str);
+}
+
+/**
  * @description 正则验证手机号、邮箱是否合法
  * @param {string} str
  * @param {*} type
