@@ -1,3 +1,12 @@
+## [0.0.20](https://github.com/galaxy-s10/billd-utils/compare/v0.0.19...v0.0.20) (2023-12-03)
+
+
+### feat
+
+* 纯整数 ([8c5eef8](https://github.com/galaxy-s10/billd-utils/commit/8c5eef834c947192fb5f1847ea61707604aa6a9b))
+
+
+
 ## [0.0.19](https://github.com/galaxy-s10/billd-utils/compare/v0.0.18...v0.0.19) (2023-11-30)
 
 
