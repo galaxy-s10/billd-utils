@@ -4,8 +4,7 @@
   // 在保存时格式化
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    // 在保存时运行eslint
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   }
   // 废弃，使用editor.codeActionsOnSave替代
   // "eslint.autoFixOnSave": true
