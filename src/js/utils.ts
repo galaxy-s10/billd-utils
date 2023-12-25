@@ -3,6 +3,34 @@
 import { debugLog } from '../utils/index';
 
 /**
+ * @description: 过滤对象的属性
+ * @param {Record} obj
+ * @param {*} any
+ * @param {string} keyArr
+ * @return {*}
+ */
+export const filterObj = (obj: Record<string, any>, keyArr: string[]) => {
+  const res: Record<string, any> = {};
+  Object.keys(obj).forEach((item) => {
+    if (!keyArr.includes(item)) {
+      res[item] = obj[item];
+    }
+  });
+  return res;
+};
+
+/**
+ * @description: 返回*
+ * @example
+ * getStars(2) ===> **；getStars(5) ===> *****
+ * @param {number} count
+ * @return {*}
+ */
+export function getStars(count: number) {
+  return '*'.repeat(count);
+}
+
+/**
  * @description: 字符串编码
  * @param {string} str
  * @return {*}
