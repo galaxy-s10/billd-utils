@@ -1,3 +1,12 @@
+## [0.0.22](https://github.com/galaxy-s10/billd-utils/compare/v0.0.21...v0.0.22) (2023-12-30)
+
+
+### fix
+
+* 优化 ([b12956c](https://github.com/galaxy-s10/billd-utils/commit/b12956c801e4e79f60061f990fdaba42dba5f151))
+
+
+
 ## [0.0.21](https://github.com/galaxy-s10/billd-utils/compare/v0.0.20...v0.0.21) (2023-12-15)
 
 
