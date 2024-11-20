@@ -1,3 +1,12 @@
+## [0.0.25](https://github.com/galaxy-s10/billd-utils/compare/v0.0.24...v0.0.25) (2024-11-20)
+
+
+### docs
+
+* readme ([d8246c1](https://github.com/galaxy-s10/billd-utils/commit/d8246c1e13dd84dc21ea6a1768b261239f73c869))
+
+
+
 ## [0.0.24](https://github.com/galaxy-s10/billd-utils/compare/v0.0.23...v0.0.24) (2024-11-20)
 
 
