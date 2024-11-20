@@ -3,6 +3,24 @@
 import { debugLog } from '../utils/index';
 
 /**
+ * 比较版本号，返回1代表version1更大，返回2代表version2更大，返回0代表相等
+ * 版本号格式：1.3.4.5
+ */
+export function compareVersions(version1: string, version2: string) {
+  const v1Parts = version1.split('.').map(Number);
+  const v2Parts = version2.split('.').map(Number);
+
+  // 比较每个部分
+  for (let i = 0; i < Math.max(v1Parts.length, v2Parts.length); i += 1) {
+    const v1Part = v1Parts[i] || 0; // 如果 v1Parts 没有该部分，视为 0
+    const v2Part = v2Parts[i] || 0; // 如果 v2Parts 没有该部分，视为 0
+    if (v1Part > v2Part) return 1; // version1 更大
+    if (v1Part < v2Part) return 2; // version2 更大
+  }
+  return 0; // 两个版本相等
+}
+
+/**
  * @description: 过滤对象的属性
  * @param {Record} obj
  * @param {*} any

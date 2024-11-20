@@ -12,3 +12,11 @@ export function dateStartAndEnd(date: Date) {
     endTime,
   };
 }
+
+/**
+ * ios日期兼容
+ * 2022-01-19 15:28:00 转成 2022/01/19 15:28:00
+ */
+export function iosTimestamp(time: string) {
+  return time.replace(/-/g, '/');
+}

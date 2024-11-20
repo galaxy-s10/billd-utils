@@ -40,13 +40,26 @@ export const getStyle = (ele: Element, styleName: string) => {
  * @param {string} text
  * @return {*}
  */
-export const copyToClipBoard = (text: string): void => {
-  const oInput = document.createElement('input');
-  oInput.value = text;
-  document.body.appendChild(oInput);
-  oInput.select(); // 选择对象
-  document.execCommand('Copy'); // 执行浏览器复制命令
-  oInput.parentElement?.removeChild(oInput);
+export const copyToClipBoard = (text: string) => {
+  if (navigator.clipboard) {
+    // eslint-disable-next-line
+    navigator.clipboard.writeText(text).catch();
+  } else {
+    const textarea = document.createElement('textarea');
+    document.body.appendChild(textarea);
+    // 赋值
+    textarea.value = text;
+    // 选中
+    textarea.select();
+    // https://github.com/tusen-ai/naive-ui/issues/6239
+    // https://stackoverflow.com/questions/48122221/working-copy-to-clipboard-function-doesnt-work-when-called-in-bootstrap-modal
+    // 重点：模拟 Focus
+    textarea.focus();
+    // 复制
+    document.execCommand('copy', true);
+    // 移除输入框
+    document.body.removeChild(textarea);
+  }
 };
 
 /**
