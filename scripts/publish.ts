@@ -3,7 +3,7 @@ import { execSync } from 'child_process';
 import pkg from '../package.json';
 import { chalkERROR, chalkSUCCESS } from './utils';
 
-const command = 'npm publish';
+const command = 'npm publish --registry https://registry.npmjs.org';
 
 // git push
 execSync(`git push origin v${pkg.version}`, { stdio: 'inherit' });
