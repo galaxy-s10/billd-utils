@@ -34,7 +34,7 @@ npm install billd-utils
 
 # 文档
 
-[http://project.hsslive.cn/billd-utils/](http://project.hsslive.cn/billd-utils/)
+[https://project.hsslive.cn/billd-monorepo/modules/utils.html](https://project.hsslive.cn/billd-monorepo/modules/utils.html)
 
 # 使用
 
