@@ -1,3 +1,12 @@
+## [0.0.24](https://github.com/galaxy-s10/billd-utils/compare/v0.0.23...v0.0.24) (2024-11-20)
+
+
+### ci
+
+* 发包镜像 ([4346a38](https://github.com/galaxy-s10/billd-utils/commit/4346a38cd8dbdfdffba2527be78a876b1b62175c))
+
+
+
 ## [0.0.23](https://github.com/galaxy-s10/billd-utils/compare/v0.0.22...v0.0.23) (2024-11-20)
 
 
