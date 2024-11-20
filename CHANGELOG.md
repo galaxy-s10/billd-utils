@@ -1,3 +1,12 @@
+## [0.0.23](https://github.com/galaxy-s10/billd-utils/compare/v0.0.22...v0.0.23) (2024-11-20)
+
+
+### fix
+
+* 添加常用方法 ([786fac9](https://github.com/galaxy-s10/billd-utils/commit/786fac927e669efae9e972811fa8b4d78ffe58f0))
+
+
+
 ## [0.0.22](https://github.com/galaxy-s10/billd-utils/compare/v0.0.21...v0.0.22) (2023-12-30)
 
 
