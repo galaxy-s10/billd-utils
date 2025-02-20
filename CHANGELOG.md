@@ -1,3 +1,12 @@
+## [0.0.26](https://github.com/galaxy-s10/billd-utils/compare/v0.0.25...v0.0.26) (2025-02-20)
+
+
+### fix
+
+* 兼容更老的浏览器 ([6276806](https://github.com/galaxy-s10/billd-utils/commit/62768064c4843d8a0a8a641788324bbefa2053fb))
+
+
+
 ## [0.0.25](https://github.com/galaxy-s10/billd-utils/compare/v0.0.24...v0.0.25) (2024-11-20)
 
 
