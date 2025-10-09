@@ -1,5 +1,7 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
+import { throwError } from '@/utils';
+
 /**
  * @description 获取[min,max]之间的随机整数。
  * @example: getRangeRandom(-10,100) ===> -8
@@ -27,11 +29,13 @@ export const getRandomOne = (arr: any[]) =>
  */
 export const getRandomString = (length: number): string => {
   const str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let res = '';
+  const strLength = str.length;
+  const result = new Array(length);
+
   for (let i = 0; i < length; i += 1) {
-    res += str.charAt(getRangeRandom(0, str.length - 1));
+    result[i] = str[Math.floor(Math.random() * strLength)];
   }
-  return res;
+  return result.join('');
 };
 
 /**
@@ -41,10 +45,8 @@ export const getRandomString = (length: number): string => {
  * @return {*}
  */
 export const getRandomInt = (length) => {
-  if (length > 16 || length < 1) throw new Error('length的范围:[1,16]');
-  let num = +`${Math.random()}`.slice(2, 2 + length);
-  if (String(num).length !== length) {
-    num = getRandomInt(length);
-  }
-  return num;
+  if (length > 16 || length < 1) throwError('length的范围:[1,16]');
+  const min = 10 ** (length - 1); // 如 length=2 → min=10
+  const max = 10 ** length - 1; // 如 length=2 → max=99
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };

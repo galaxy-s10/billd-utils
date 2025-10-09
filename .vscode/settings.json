@@ -4,7 +4,14 @@
   // 在保存时格式化
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.addMissingImports.ts": "explicit",
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.sortJSON": "explicit",
+    "source.fixAll.ts": "explicit",
+    // "source.organizeImports": "explicit",
+    "source.removeUnused.ts": "explicit",
+    "source.removeUnusedImports": "explicit"
+    // "source.sortImports": "explicit"
   }
   // 废弃，使用editor.codeActionsOnSave替代
   // "eslint.autoFixOnSave": true

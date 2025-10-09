@@ -4,6 +4,7 @@ export * from './dom';
 export * from './format';
 export * from './random';
 export * from './string';
+export * from './time';
 export * from './reg';
 export * from './url';
 export * from './utils';

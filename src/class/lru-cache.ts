@@ -1,11 +1,15 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
+import { throwError } from '@/utils';
+
 export class LRUCache {
   capacity: number;
   data = new Map();
 
   constructor(capacity: number) {
-    if (capacity < 1) throw new Error('capacity必须大于1！');
+    if (capacity < 1) {
+      throwError('capacity必须大于1！');
+    }
     this.capacity = capacity;
   }
 

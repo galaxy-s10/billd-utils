@@ -1,5 +1,7 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
+import { debugLog } from '@/utils';
+
 /**
  * @description 计算两个dom是否有交集
  * @param {Element} element1
@@ -43,7 +45,9 @@ export const getStyle = (ele: Element, styleName: string) => {
 export const copyToClipBoard = (text: string) => {
   if (navigator.clipboard) {
     // eslint-disable-next-line
-    navigator.clipboard.writeText(text).catch();
+    navigator.clipboard.writeText(text).catch(() => {
+      debugLog('error', 'copyToClipBoard失败');
+    });
   } else {
     const textarea = document.createElement('textarea');
     document.body.appendChild(textarea);

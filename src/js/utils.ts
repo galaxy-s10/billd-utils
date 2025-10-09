@@ -1,6 +1,6 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
-import { debugLog } from '../utils/index';
+import { debugLog } from '@/utils';
 
 /**
  * 比较版本号，返回1代表version1更大，返回2代表version2更大，返回0代表相等
@@ -130,6 +130,10 @@ export function computeBox({
 }) {
   // w = h / ratio, h = w * ratio
   const ratio = height / width;
+  if (Number.isNaN(ratio)) {
+    debugLog('error', 'ratio值错误');
+    return { width: 0, height: 0 };
+  }
   // eslint-disable-next-line
   const _minWidth = minWidth ? minWidth : 0;
   // eslint-disable-next-line
