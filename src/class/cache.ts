@@ -113,7 +113,7 @@ export class CacheModel {
    * @description 设置缓存以及缓存时长
    * @param {*} key
    * @param {*} value
-   * @param {*} expires 缓存时长,单位:小时
+   * @param {*} expires 缓存时长,单位:毫秒
    */
   setStorageExp = (key: string, value: any, expires: number) => {
     try {
@@ -122,7 +122,7 @@ export class CacheModel {
         return;
       }
       const createTime = +new Date();
-      const expireTime = createTime + expires * 60 * 60 * 1000;
+      const expireTime = createTime + expires;
       this.setItem(key, JSON.stringify({ value, createTime, expireTime }));
     } catch (error) {
       debugLog('error', error);
