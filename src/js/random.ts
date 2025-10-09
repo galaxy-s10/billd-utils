@@ -1,7 +1,5 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
-import { throwError } from '../utils';
-
 /**
  * @description 获取[min,max]之间的随机整数。
  * @example: getRangeRandom(-10,100) ===> -8
@@ -45,7 +43,6 @@ export const getRandomString = (length: number): string => {
  * @return {*}
  */
 export const getRandomInt = (length) => {
-  if (length > 16 || length < 1) throwError('length的范围:[1,16]');
   const min = 10 ** (length - 1); // 如 length=2 → min=10
   const max = 10 ** length - 1; // 如 length=2 → max=99
   return Math.floor(Math.random() * (max - min + 1)) + min;
