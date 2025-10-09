@@ -1,6 +1,6 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
-import { debugLog } from '@/utils';
+import { debugLog } from '../utils';
 
 /**
  * @description 计算两个dom是否有交集

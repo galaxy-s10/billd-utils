@@ -1,6 +1,6 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
-import { throwError } from '@/utils';
+import { throwError } from '../utils';
 
 /**
  * @description 获取[min,max]之间的随机整数。

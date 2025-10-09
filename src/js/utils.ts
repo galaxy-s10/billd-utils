@@ -1,6 +1,6 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
-import { debugLog } from '@/utils';
+import { debugLog } from '../utils';
 
 /**
  * 比较版本号，返回1代表version1更大，返回2代表version2更大，返回0代表相等
@@ -426,7 +426,7 @@ export const toKebabCase2 = (input: string) =>
  * @return {*}
  */
 export const toCamelCased = (input: string) =>
-  input.replace(/-(\w)/g, function (all, letter) {
+  input.replace(/-(\w)/g, function (_all, letter) {
     return letter.toUpperCase();
   });
 
@@ -436,7 +436,7 @@ export const toCamelCased = (input: string) =>
  * @return {*}
  */
 export const toCamelCased2 = (input: string) =>
-  input.replace(/_(\w)/g, function (all, letter) {
+  input.replace(/_(\w)/g, function (_all, letter) {
     return letter.toUpperCase();
   });
 
@@ -447,7 +447,7 @@ export const toCamelCased2 = (input: string) =>
  */
 export const toPascalCase = (input: string) => {
   const res = input.replace(input[0], input[0].toUpperCase());
-  return res.replace(/-(\w)/g, function (all, letter) {
+  return res.replace(/-(\w)/g, function (_all, letter) {
     return letter.toUpperCase();
   });
 };
@@ -459,7 +459,7 @@ export const toPascalCase = (input: string) => {
  */
 export const toPascalCase2 = (input: string) => {
   const res = input.replace(input[0], input[0].toUpperCase());
-  return res.replace(/_(\w)/g, function (all, letter) {
+  return res.replace(/_(\w)/g, function (_all, letter) {
     return letter.toUpperCase();
   });
 };

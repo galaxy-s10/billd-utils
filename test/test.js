@@ -1,3 +1,7 @@
+const debugLog = (type, ...data) => {
+  console[type]('billd-utils', ...data);
+};
+
 /**
  * @description 获取随机整数
  * @example: getRandomInt(4) ===> 3251
@@ -15,3 +19,6 @@ for (let i = 0; i < 10000; i += 1) {
     console.log(res);
   }
 }
+
+debugLog('log', '1111', 2222);
+debugLog('error', '323', 3434);

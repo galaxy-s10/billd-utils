@@ -1,6 +1,6 @@
 // TIP: ctrl+cmd+t,生成函数注释
 
-import { throwError } from '@/utils';
+import { throwError } from '../utils';
 
 export class LRUCache {
   capacity: number;
