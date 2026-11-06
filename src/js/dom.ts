@@ -45,8 +45,8 @@ export const getStyle = (ele: Element, styleName: string) => {
 export const copyToClipBoard = (text: string) => {
   if (navigator.clipboard) {
     // eslint-disable-next-line
-    navigator.clipboard.writeText(text).catch(() => {
-      debugLog('error', 'copyToClipBoard失败');
+    navigator.clipboard.writeText(text).catch((error) => {
+      debugLog('error', 'copyToClipBoard失败', error);
     });
   } else {
     const textarea = document.createElement('textarea');

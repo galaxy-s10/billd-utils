@@ -3,57 +3,55 @@ import { debugLog } from '../utils/index';
 
 export class ConcurrentPoll {
   /** 任务队列 */
-  tasks: any[] = [];
+  tasks: Array<() => Promise<any>> = [];
   /** 最大并发数 */
-  max = 0;
+  private max = 5;
+  /** 正在运行的任务数 */
+  private running = 0;
+  /** 待执行任务总数 */
   total = 0;
+  /** 任务间隔延迟(ms) */
   delay = 0;
-  done: () => void;
+  /** 全部任务完成后的回调 */
+  done?: () => void;
 
   constructor({ max = 5, done, delay = 0 }) {
     this.tasks = [];
     this.total = 0;
+    this.running = 0;
     this.max = max;
     this.done = done;
     this.delay = delay;
     setTimeout(() => {
-      /** 函数主体执行完后立即执行 */
       this.run();
     }, 0);
   }
 
-  addTask(task) {
+  addTask(task: () => Promise<any>) {
     this.tasks.push(task);
     this.total += 1;
   }
 
   run() {
-    /** 原型任务运行方法 */
     if (this.tasks.length === 0) {
-      /** 判断是否还有任务 */
-      return Promise.resolve('');
+      return;
     }
 
-    /** 取任务个数与最大并发数最小值 */
-    const min = Math.min(this.tasks.length, this.max);
+    // 剩余可并发数 = max - running
+    const availableSlots = this.max - this.running;
+    // 本次可启动的任务数
+    const batchSize = Math.min(this.tasks.length, availableSlots);
 
-    for (let i = 0; i < min; i += 1) {
-      /** 执行最大并发递减 */
-      this.max -= 1;
-      /** 从数组头部取任务 */
-      const task = this.tasks.shift();
+    for (let i = 0; i < batchSize; i += 1) {
+      this.running += 1;
+      const task = this.tasks.shift()!;
       task()
-        .then(() => {
-          // 重：此时可理解为，当for循环执行完毕后异步请求执行回调,此时max变为0
-        })
         .catch((error) => {
           debugLog('error', error);
         })
         .finally(() => {
-          /** 重：当所有请求完成并返回结果后，执行finally回调，此回调将按照for循环依次执行，此时max为0. */
           setTimeout(() => {
-            /** 超过最大并发10以后的任务将按照任务顺序依次执行。此处可理解为递归操作。 */
-            this.max += 1;
+            this.running -= 1;
             this.total -= 1;
             this.run();
             if (this.total === 0) {

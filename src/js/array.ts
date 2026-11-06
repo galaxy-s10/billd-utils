@@ -28,6 +28,9 @@ export const arrayShuffle = (arr: Array<any>) => {
 
 /**
  * @description 获取数组交集
+ * @example
+ * a[1,2,3,4,5],b[3,4,5,6,1],a和b的交集:getArrayIntersection(a,b) ===> [1,3,4,5]
+ * a[1,2,3,4,5],b[3,4,5,6,1],b和a的交集:getArrayIntersection(b,a) ===> [3,4,5,1]
  * @param {any} a
  * @param {any} b
  * @return {*}

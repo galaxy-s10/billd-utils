@@ -1,7 +1,3 @@
-const debugLog = (type, ...data) => {
-  console[type]('billd-utils', ...data);
-};
-
 /**
  * @description 获取随机整数
  * @example: getRandomInt(4) ===> 3251
@@ -15,10 +11,22 @@ const getRandomInt = (length) => {
 
 for (let i = 0; i < 10000; i += 1) {
   const res = getRandomInt(4);
-  if (String(res).length !== 2) {
+  if (String(Number(res)).length !== 4) {
     console.log(res);
   }
 }
 
-debugLog('log', '1111', 2222);
-debugLog('error', '323', 3434);
+/**
+ * @description 获取数组交集
+ * @param {any} a
+ * @param {any} b
+ * @return {*}
+ */
+const getArrayIntersection = (a, b) => {
+  return a.filter((v) => {
+    return b.indexOf(v) > -1;
+  });
+};
+
+console.log(getArrayIntersection([1, 2, 3, 4, 5], [3, 4, 5, 6, 1]));
+console.log(getArrayIntersection([3, 4, 5, 6, 1], [1, 2, 3, 4, 5]));
