@@ -131,6 +131,15 @@ pnpm run release:local
 
 ## 2.执行线上发版脚本
 
+发布时本地环境：
+
+```sh
+➜  billd-utils git:(master) ✗ node -v
+v24.22.2
+➜  billd-utils git:(master) ✗ npm -v
+12.2.2
+```
+
 ```sh
 pnpm run release:online
 ```
